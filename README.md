@@ -19,17 +19,17 @@ dockermgr update stikked
 ## Install and run container
   
 ```shell
-mkdir -p "$HOME/.local/share/srv/docker/stikked/rootfs"
+mkdir -p "$HOME/.local/share/srv/docker/stikked/volumes"
 git clone "https://github.com/dockermgr/stikked" "$HOME/.local/share/CasjaysDev/dockermgr/stikked"
-cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/stikked/rootfs/." "$HOME/.local/share/srv/docker/stikked/rootfs/"
+cp -Rfva "$HOME/.local/share/CasjaysDev/dockermgr/stikked/volumes/." "$HOME/.local/share/srv/docker/stikked/volumes/"
 docker run -d \
 --restart always \
 --privileged \
 --name casjaysdevdocker-stikked \
 --hostname stikked \
 -e TZ=${TIMEZONE:-America/New_York} \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-stikked/rootfs/data:/data:z" \
--v "$HOME/.local/share/srv/docker/casjaysdevdocker-stikked/rootfs/config:/config:z" \
+-v "$HOME/.local/share/srv/docker/casjaysdevdocker-stikked/volumes/data:/data:z" \
+-v "$HOME/.local/share/srv/docker/casjaysdevdocker-stikked/volumes/config:/config:z" \
 -p 80:80 \
 casjaysdevdocker/stikked:latest
 ```
@@ -46,8 +46,8 @@ services:
       - TZ=America/New_York
       - HOSTNAME=stikked
     volumes:
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-stikked/rootfs/data:/data:z"
-      - "$HOME/.local/share/srv/docker/casjaysdevdocker-stikked/rootfs/config:/config:z"
+      - "$HOME/.local/share/srv/docker/casjaysdevdocker-stikked/volumes/data:/data:z"
+      - "$HOME/.local/share/srv/docker/casjaysdevdocker-stikked/volumes/config:/config:z"
     ports:
       - 80:80
     restart: always
